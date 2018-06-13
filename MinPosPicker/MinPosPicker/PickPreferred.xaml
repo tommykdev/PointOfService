@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="MinPosPicker.PickPreferred"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MinPosPicker"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Vertical" Margin="5">
+            <TextBlock x:Name="DeviceClassTitle" Margin="0,5,0,20" HorizontalAlignment="Left" TextWrapping="NoWrap" Text="Pos Device Type" FontSize="25"/>
+
+            <TextBlock x:Name="PreferredLabel" Margin="0,5" HorizontalAlignment="Left" TextWrapping="NoWrap" Text="Preferred Device:"/>
+            <TextBox 
+                    x:Name="PreferredItemBox" 
+                    Margin="0,5"
+                    MinHeight="45"
+                    MinWidth="200"
+                    Text="My Favorite" 
+                    FontWeight="Bold"
+                    TextWrapping="NoWrap" 
+                    IsReadOnly="True" 
+                    IsTabStop="False" 
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top" 
+                    ScrollViewer.HorizontalScrollMode="Enabled" 
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                />
+
+            <TextBlock x:Name="EnumDevicesLabel" Margin="0,5" HorizontalAlignment="Left" TextWrapping="NoWrap" Text="Select one below..."/>
+            <ListBox x:Name="EnumDevicesListBox"
+                     ItemsSource="{x:Bind SelectionList, Mode=OneWay}" 
+                     Margin="0,5"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Top"
+                     MinHeight="250"
+                     ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                     ScrollViewer.VerticalScrollMode="Enabled"
+                     ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                     ScrollViewer.HorizontalScrollMode="Enabled"
+                     SelectionChanged="EnumDevicesListBox_SelectionChanged"
+                     >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding DeviceClassStr, Mode=OneWay}" Tag="{Binding DeviceId}" Width="150" />
+                            <TextBlock Text="{Binding DeviceName, Mode=OneWay}" TextDecorations="Underline" Tag="{Binding DeviceId}" Margin="10,0,10,0"/>
+                            <TextBlock Text="(" />
+                            <TextBlock Text="{Binding DeviceId, Mode=OneWay}"  Tag="{Binding DeviceId}" />
+                            <TextBlock Text=")" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+        </StackPanel>
+        
+        <ProgressRing x:Name="BusySignal"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,20,0,0" Height="80" Width="80" IsActive="False"/>
+
+    </Grid>
+</Page>
